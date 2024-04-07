@@ -10,4 +10,8 @@ This project involves creating a system that processes a file containing debit a
 - terraform
 - aws cli
 
-## Setup (optional)
+##Configuration
+
+## Deploy
+
+## Testing
