@@ -25,5 +25,13 @@ MAIL_PASSWORD=your_mail_password
 
 
 ## Deploy
+1.Run the ./build.sh script to execute the build process.
 
-## Testing
+2. Navigate to the infrastructure folder and execute the following Terraform commands:
+
+```
+terraform init
+terraform plan
+terraform apply
+```
+
