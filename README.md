@@ -9,6 +9,7 @@ This project involves creating a system that processes a file containing debit a
 - docker
 - terraform
 - aws cli
+- aws credentials configure
 
 ## Configuration
 
