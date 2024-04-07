@@ -15,12 +15,12 @@ data "aws_caller_identity" "current" {}
 
 data "archive_file" "lambda" {
   type        = "zip"
-  source_file  = "bootstrap"
+  source_dir  = "bootstraps"
   output_path = "bootstrap.zip"
 }
 
-resource "aws_lambda_function" "go_lambda" {
-  function_name = "go-demo"
+resource "aws_lambda_function" "go_financial_lambda" {
+  function_name = "go-financial-lambda"
 
   role             = aws_iam_role.lambda_iam_role.arn
   handler          = "bootstrap"
@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "lambda_assume_role_policy" {
 }
 
 resource "aws_iam_policy" "lambda_execution_policy" {
-  name        = "demo-lambda-basic-execution"
+  name        = "lambda-basic-execution"
   description = "policy to allow basic execution of lambda"
 
   policy = jsonencode({
@@ -71,6 +71,17 @@ resource "aws_iam_policy" "lambda_execution_policy" {
           "logs:PutLogEvents"
         ],
         Resource = "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:*"
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket"
+        ],
+        Resource = [
+          "arn:aws:s3:::go-financial-lambda-csvs",              # Cambia al nombre de tu bucket
+          "arn:aws:s3:::go-financial-lambda-csvs/*"            # Cambia al nombre de tu bucket
+        ]
       }
     ]
   })
@@ -82,9 +93,9 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
 }
 
 output "lambda_function_arn" {
-  value = aws_lambda_function.go_lambda.invoke_arn
+  value = aws_lambda_function.go_financial_lambda.invoke_arn
 }
 
 output "lambda_function_name" {
-  value = aws_lambda_function.go_lambda.function_name
+  value = aws_lambda_function.go_financial_lambda.function_name
 }

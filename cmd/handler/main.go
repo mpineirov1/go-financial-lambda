@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/JayJamieson/go-lambda/handlers"
+	"github.com/mpineirov1/go-financial-lambda/handlers"
 	"log"
 	"os"
 	"time"

@@ -1,18 +1,21 @@
 #!/bin/bash
 
-# NOTE:
-# sample script, not fully test
+# This is a sample Bash script for WSL
+
+# Function to greet the user
+echo "Building docker image"
 
 docker build -t lambda-build .
-docker run -it -v $(pwd):/project lambda-build go build -o ./bin/main.local ./cmd/handler/main.go
-docker run -it -v $(pwd):/project lambda-build go build -tags lambda.norpc -o ./infrastructure/bootstrap ./main.go
+
+echo "Delete old files" 
+rm ./infrastructure/bootstraps/bootstrap
+rm -rf ./infrastructure/bootstraps/templates
+rm ./infrastructure/bootstrap.zip
+
+echo "Copy new files"
+cp .env ./infrastructure/bootstraps/.env
+cp -r templates ./infrastructure/bootstraps/templates/
 
 
-if [ -f "bootstrap.zip" ]; then
-  echo "deleting old zip"
-  rm bootstrap.zip
-fi
-
-zip -j bootstrap.zip ./bin/main
-
-cp bootstrap.zip ./infrastructure
+echo "Create new compiled file"
+docker run -it -v $(pwd):/project lambda-build go build -tags lambda.norpc -o ./infrastructure/bootstraps/bootstrap ./main.go
