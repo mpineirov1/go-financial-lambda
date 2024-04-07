@@ -48,7 +48,7 @@ terraform apply
 ```
 {
   "queryStringParameters": {
-    "email": "mpineirov1@hotmail.com"
+    "email": "youremail@storicard.com"
   }
 }
 ```
