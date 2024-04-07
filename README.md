@@ -35,3 +35,25 @@ terraform plan
 terraform apply
 ```
 
+## Testing
+
+1. Log in to the AWS Management Console and navigate to the Lambda service.
+
+2. Select your Lambda function from the list.
+
+3. Click on the "Testing" tab to access the testing interface.
+
+4. In the "JSON Event" input field, paste the following JSON:
+
+```
+{
+  "queryStringParameters": {
+    "email": "mpineirov1@hotmail.com"
+  }
+}
+```
+
+
+5. Click on the "Test" button to execute the Lambda function with the provided JSON event.
+
+6. Check your email inbox.
